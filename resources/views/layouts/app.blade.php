@@ -65,7 +65,6 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/activities">Activities</a>
                                     <a class="dropdown-item" href="/daytimes">Daytimes</a>
-                                    <a class="dropdown-item" href="/eye_conditions">Eye Conditions</a>
                                     <a class="dropdown-item" href="/glasses">Glasses</a>
                                     <a class="dropdown-item" href="/monitors">Monitors</a>
                                     <a class="dropdown-item" href="/seats">Seating</a>

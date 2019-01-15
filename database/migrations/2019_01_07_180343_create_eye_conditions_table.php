@@ -17,10 +17,8 @@ class CreateEyeConditionsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('definition')->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('numeric_value');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

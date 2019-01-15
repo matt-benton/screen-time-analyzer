@@ -8,6 +8,7 @@ use App\Session;
 use App\Daytime;
 use Carbon\Carbon;
 use App\Segment;
+use App\EyeCondition;
 
 class SessionController extends Controller
 {
@@ -39,7 +40,7 @@ class SessionController extends Controller
             'activities' => $user->activities,
             'glasses' => $user->glasses,
             'symptoms' => $user->symptoms,
-            'eyeConditions' => $user->eyeConditions,
+            'eyeConditions' => EyeCondition::all(),
         ]);
     }
 
@@ -94,7 +95,7 @@ class SessionController extends Controller
             'seats' => $user->seats,
             'activities' => $user->activities,
             'monitors' => $user->monitors,
-            'eyeConditions' => $user->eyeConditions,
+            'eyeConditions' => EyeCondition::all(),
             'symptoms' => $user->symptoms,
             'glasses' => $user->glasses,
         ]);

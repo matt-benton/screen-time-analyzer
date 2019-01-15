@@ -43,11 +43,6 @@ class User extends Authenticatable
         return $this->hasMany('App\Activity');
     }
 
-    public function eyeConditions()
-    {
-        return $this->hasMany('App\EyeCondition');
-    }
-
     public function glasses()
     {
         return $this->hasMany('App\Glasses');

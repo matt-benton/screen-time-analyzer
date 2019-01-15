@@ -13,20 +13,22 @@ class EyeConditionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::findOrFail(1);
-
         $green = new EyeCondition;
-        $green->name = 'Green';
+        $green->name = 'green';
         $green->definition = 'No irritation';
+        $green->numeric_value = 3;
+        $green->save();
 
-        $orange = new EyeCondition;
-        $orange->name = 'Orange';
-        $orange->definition = 'Some irritation';
+        $yellow = new EyeCondition;
+        $yellow->name = 'yellow';
+        $yellow->definition = 'Some irritation';
+        $yellow->numeric_value = 2;
+        $yellow->save();
 
         $red = new EyeCondition;
-        $red->name = 'Red';
+        $red->name = 'red';
         $red->definition = 'Severe irritation to the point where I have to stop and do something else.';
-
-        $user->eyeConditions()->saveMany([$green, $orange, $red]);
+        $red->numeric_value = 1;
+        $red->save();
     }
 }
