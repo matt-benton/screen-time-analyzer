@@ -15,12 +15,9 @@ class CreateDaytimesTable extends Migration
     {
         Schema::create('daytimes', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
             $table->string('name');
             $table->string('description')->nullable();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

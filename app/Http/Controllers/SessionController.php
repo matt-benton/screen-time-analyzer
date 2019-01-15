@@ -34,7 +34,7 @@ class SessionController extends Controller
         $user = Auth::user();
 
         return view('sessions.create', [
-            'daytimes' => $user->daytimes,
+            'daytimes' => Daytime::all(),
             'seats' => $user->seats,
             'monitors' => $user->monitors,
             'activities' => $user->activities,

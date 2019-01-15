@@ -28,11 +28,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function daytimes()
-    {
-        return $this->hasMany('App\Daytime');
-    }
-
     public function sessions()
     {
         return $this->hasMany('App\Session');
