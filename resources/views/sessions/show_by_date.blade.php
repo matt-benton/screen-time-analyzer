@@ -20,13 +20,11 @@
 
             <ul class="list-group mt-1">
                 @foreach ($activities as $activity)
-                    <li class="list-group-item">{{ $activity->name }}: {{ $activity->total }} minutes ({{ $activity->percent }}%)</li>
+                    @if ($activity->percent > 0)
+                        <li class="list-group-item">{{ $activity->name }}: {{ $activity->total }} minutes ({{ $activity->percent }}%)</li>
+                    @endif
                 @endforeach
             </ul>
-
-            <!-- <ul class="list-group mt-1">
-                <li class="list-group-item">Average break length</li>
-            </ul> -->
         </div>
 
         <!-- Sessions list -->

@@ -149,7 +149,7 @@ class SessionController extends Controller
         $activities = Auth::user()->activities;
         $activities->map(function ($activity, $key) use ($date, $totalScreenTime) {
             $activity->total = $activity->calculateTotalTimeSpentByDate($date);
-            $activity->percent = ($activity->total / $totalScreenTime) * 100;
+            $activity->percent = round(($activity->total / $totalScreenTime) * 100);
         });
 
         return view('sessions.show_by_date', [
