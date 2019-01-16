@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Segment;
 use Carbon\Carbon;
+use App\Daytime;
+use App\EyeCondition;
 
 class SegmentController extends Controller
 {
@@ -76,7 +78,19 @@ class SegmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $segment = Auth::user()->segments()->where('segments.id', $id)->first();
+
+        return view('segments.segment', [
+            'segment' => $segment,
+            'daytimes' => Daytime::all(),
+            'seats' => $user->seats,
+            'monitors' => $user->monitors,
+            'activities' => $user->activities,
+            'glasses' => $user->glasses,
+            'symptoms' => $user->symptoms,
+            'eyeConditions' => EyeCondition::all(),
+        ]);
     }
 
     /**
@@ -88,7 +102,22 @@ class SegmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $segment = Auth::user()->segments()->where('segments.id', $id)->first();
+
+        $start = new Carbon($segment->session->date . $request->start);
+        $end = new Carbon($segment->session->date . $request->end);
+
+        $segment->start = $start;
+        $segment->end = $end;
+        $segment->seat_id = $request->seat;
+        $segment->monitor_id = $request->monitor;
+        $segment->activity_id = $request->activity;
+        $segment->eye_condition_id = $request->eye_condition;
+        $segment->glasses_id = $request->glasses;
+        $segment->save();
+        $segment->symptoms()->sync($request->symptoms);
+
+        return redirect('/sessions/' . $segment->session->id);
     }
 
     /**

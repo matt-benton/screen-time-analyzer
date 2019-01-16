@@ -56,4 +56,9 @@ class Segment extends Model
     {
         return $this->end->diffInMinutes($this->start) . " minutes";
     }
+
+    public function startDate()
+    {
+        return $this->start->toDateString();
+    }
 }
