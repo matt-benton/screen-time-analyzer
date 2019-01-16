@@ -10,11 +10,11 @@
             <div class="card bg-light mt-1 pl-2 pr-2">
                 <div class="card-body">
                     Total Screen Time
-                    <h3 class="text-right pb-4">{{ $totalScreenTime }} min</h3>
+                    <h3 class="text-right pb-4">{{ $totalScreenTime }}</h3>
                     Average Session Length
-                    <h5 class="text-right pb-4">{{ $avgSessionLength }} min</h5>
+                    <h5 class="text-right pb-4">{{ $avgSessionLength }}</h5>
                     Average Segment Length
-                    <h5 class="text-right pb-4">{{ $avgSegmentLength }} min</h5>
+                    <h5 class="text-right pb-4">{{ $avgSegmentLength }}</h5>
                 </div>
             </div>
 

@@ -155,9 +155,9 @@ class SessionController extends Controller
         return view('sessions.show_by_date', [
             'sessions' => $sessions,
             'date' => $date,
-            'totalScreenTime' => $totalScreenTime,
-            'avgSessionLength' => $avgSessionLength,
-            'avgSegmentLength' => $avgSegmentLength,
+            'totalScreenTime' => $this->formatIntoHoursAndMinutes($totalScreenTime),
+            'avgSessionLength' => $this->formatIntoHoursAndMinutes($avgSessionLength),
+            'avgSegmentLength' => $this->formatIntoHoursAndMinutes($avgSegmentLength),
             'activities' => $activities,
         ]);
     }
@@ -191,6 +191,17 @@ class SessionController extends Controller
     {
         foreach ($sessions as $session) {
             round($session->averageSegmentLength());
+        }
+    }
+
+    private function formatIntoHoursAndMinutes(int $minutes)
+    {
+        if ($minutes < 60) {
+            return $minutes . " min";
+        } else {
+            $hours = number_format($minutes / 60) . " hr, ";
+            $minutes = $minutes % 60 . " min";
+            return $hours . $minutes;
         }
     }
 }

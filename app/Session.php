@@ -52,7 +52,15 @@ class Session extends Model
 
     public function lengthFormatted()
     {
-        return $this->end()->diffInMinutes($this->start()) . " minutes";
+        // return $this->end()->diffInMinutes($this->start()) . " minutes";
+
+        if ($this->length() < 60) {
+            return $this->length() . " minutes";
+        } else {
+            $hours = $this->end()->diffInHours($this->start()) . " hours, ";
+            $minutes = $this->length() % 60 . " minutes";
+            return $hours . $minutes;
+        }
     }
 
     // the sum of the length of each segment
