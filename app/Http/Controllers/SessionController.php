@@ -152,6 +152,13 @@ class SessionController extends Controller
             $activity->percent = round(($activity->total / $totalScreenTime) * 100);
         });
 
+        // Calculate what percentage of total screen time each segment takes
+        foreach ($sessions as $session) {
+            $session->segments->map(function ($segment, $key) use ($totalScreenTime) {
+                $segment->percentage_of_screen_time = $segment->calculateDailyPercentageOfScreenTime($totalScreenTime);
+            });
+        }
+
         return view('sessions.show_by_date', [
             'sessions' => $sessions,
             'date' => $date,

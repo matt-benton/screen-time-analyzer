@@ -61,4 +61,9 @@ class Segment extends Model
     {
         return $this->start->toDateString();
     }
+
+    public function calculateDailyPercentageOfScreenTime(int $totalScreenTime)
+    {
+        return ($this->length() / $totalScreenTime) * 100;
+    }
 }
