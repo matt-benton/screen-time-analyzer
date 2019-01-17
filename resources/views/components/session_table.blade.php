@@ -24,7 +24,7 @@
                     @case('green')
                         <tr class="table-success">
                         @break
-                    @case('orange')
+                    @case('yellow')
                         <tr class="table-warning">
                         @break
                     @case('red')
