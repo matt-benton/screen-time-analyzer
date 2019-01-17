@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::component('components.session_table', 'session_table');
+        Blade::component('components.eye_status_bar', 'eye_status_bar');
     }
 
     /**
