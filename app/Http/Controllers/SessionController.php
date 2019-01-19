@@ -206,7 +206,7 @@ class SessionController extends Controller
         if ($minutes < 60) {
             return $minutes . " min";
         } else {
-            $hours = number_format($minutes / 60) . " hr, ";
+            $hours = floor($minutes / 60) . " hr, ";
             $minutes = $minutes % 60 . " min";
             return $hours . $minutes;
         }

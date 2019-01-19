@@ -52,8 +52,6 @@ class Session extends Model
 
     public function lengthFormatted()
     {
-        // return $this->end()->diffInMinutes($this->start()) . " minutes";
-
         if ($this->length() < 60) {
             return $this->length() . " minutes";
         } else {
@@ -63,7 +61,7 @@ class Session extends Model
         }
     }
 
-    // the sum of the length of each segment
+    // the sum of the length of each segment within this session
     public function totalScreenTime()
     {
         $total = 0;
