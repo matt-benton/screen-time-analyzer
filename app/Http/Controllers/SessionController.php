@@ -19,7 +19,7 @@ class SessionController extends Controller
      */
     public function index()
     {
-        $sessions = Auth::user()->sessions()->paginate(20);
+        $sessions = Auth::user()->sessions()->orderBy('date', 'desc')->paginate(20);
 
         return view('sessions.sessions', ['sessions' => $sessions]);
     }

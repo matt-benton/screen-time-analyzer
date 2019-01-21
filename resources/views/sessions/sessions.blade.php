@@ -21,7 +21,7 @@
                     <tbody>
                         @foreach ($sessions as $session)
                             <tr>
-                                <td><a href="/sessions/{{ $session->id }}">{{ $session->startFormatted() }} - {{ $session->endFormatted() }}</a></td>
+                                <td><a href="/sessions/{{ $session->id }}">{{ $session->date->format('m/d/Y') }} {{ $session->startFormatted() }} - {{ $session->endFormatted() }}</a></td>
                             </tr>
                         @endforeach
                     </tbody>

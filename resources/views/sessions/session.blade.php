@@ -6,6 +6,11 @@
     <!-- List of segment -->
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">{{ $session->date->format('m-d-Y') }}</li>
+                </ol>
+            </nav>
             @session_table(['session' => $session])
             @endsession_table
         </div>

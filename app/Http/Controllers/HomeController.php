@@ -32,11 +32,11 @@ class HomeController extends Controller
         $sessions = Auth::user()->sessions()->whereBetween('date', [$threeMonthsAgo, $yesterday])->latest('date')->limit(3)->get();
 
         // Calculate what percentage of total screen time each segment takes
-        foreach ($sessions as $session) {
-            $session->segments->map(function ($segment, $key) use ($totalScreenTime) {
-                $segment->percentage_of_screen_time = $segment->calculateDailyPercentageOfScreenTime($totalScreenTime);
-            });
-        }
+        // foreach ($sessions as $session) {
+        //     $session->segments->map(function ($segment, $key) use ($totalScreenTime) {
+        //         $segment->percentage_of_screen_time = $segment->calculateDailyPercentageOfScreenTime($totalScreenTime);
+        //     });
+        // }
 
         return view('home', [
             'sessions' => $sessions,
