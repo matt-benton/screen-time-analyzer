@@ -70,7 +70,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="eye-condition-input">Eye Conditions</label>
+                    <label for="eye-condition-input">Eye Condition</label>
                     <select class="form-control" id="eye-condition-input" name="eye_condition">
                         @foreach ($eyeConditions as $condition)
                             <option value="{{ $condition->id }}">{{ $condition->name }}</option>
