@@ -41,8 +41,8 @@ class SegmentController extends Controller
     {
         $session = Auth::user()->sessions()->where('id', $request->session)->first();
 
-        $start = new Carbon($session->date . $request->start);
-        $end = new Carbon($session->date . $request->end);
+        $start = new Carbon($session->date->toDateString() . ' ' . $request->start);
+        $end = new Carbon($session->date->toDateString() . ' ' . $request->end);
 
         $segment = new Segment;
         $segment->start = $start;
@@ -104,8 +104,8 @@ class SegmentController extends Controller
     {
         $segment = Auth::user()->segments()->where('segments.id', $id)->first();
 
-        $start = new Carbon($segment->session->date . $request->start);
-        $end = new Carbon($segment->session->date . $request->end);
+        $start = new Carbon($segment->session->date->toDateString() . ' ' . $request->start);
+        $end = new Carbon($segment->session->date->toDateString() . ' ' . $request->end);
 
         $segment->start = $start;
         $segment->end = $end;

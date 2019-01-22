@@ -28,18 +28,30 @@ class HomeController extends Controller
         $threeMonthsAgo = Carbon::now('America/Chicago')->subMonth(3)->toDateString();
         $yesterday = Carbon::now('America/Chicago')->subDay()->toDateString();
 
-        // Get the last three days worth of sessions
-        $sessions = Auth::user()->sessions()->whereBetween('date', [$threeMonthsAgo, $yesterday])->latest('date')->limit(3)->get();
+        // Get sessions from up to three months ago
+        $sessions = Auth::user()->sessions()->whereBetween('date', [$threeMonthsAgo, $yesterday])->latest('date')->get();
+
+        // Split sessions up into three most recent days
+        $dates = $sessions->pluck('date')->unique();
+        $mostRecentDate = $dates->shift();
+        $secondMostRecentDate = $dates->shift();
+        $thirdMostRecentDate = $dates->shift();
+
+        $mostRecentSessions = $sessions->filter(function ($session, $key) use ($mostRecentDate) {
+            return $session->date == $mostRecentDate;
+        });
 
         // Calculate what percentage of total screen time each segment takes
-        // foreach ($sessions as $session) {
-        //     $session->segments->map(function ($segment, $key) use ($totalScreenTime) {
-        //         $segment->percentage_of_screen_time = $segment->calculateDailyPercentageOfScreenTime($totalScreenTime);
-        //     });
-        // }
+        foreach ($mostRecentSessions as $sessions) {
+            $session->segments->map(function ($segment, $key) use ($totalScreenTime) {
+                $segment->percentage_of_screen_time = $segment->calculateDailyPercentageOfScreenTime($totalScreenTime);
+            });
+        }
+
+
 
         return view('home', [
-            'sessions' => $sessions,
+            'sessions' => $mostRecentSessions,
         ]);
     }
 }

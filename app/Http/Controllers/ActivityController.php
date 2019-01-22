@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Activity;
+use App\Services\ActivityService;
 
 class ActivityController extends Controller
 {
+    protected $activityService;
+
+    public function __construct(ActivityService $activityService)
+    {
+        $this->activityService = $activityService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,17 +23,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return view('activities.activities', ['activities' => Auth::user()->activities]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
+        return view('activities.activities', ['activities' => $this->activityService->index()]);
     }
 
     /**
@@ -36,10 +34,7 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        $activity = new Activity;
-        $activity->name = $request->name;
-        $activity->description = $request->description;
-        Auth::user()->activities()->save($activity);
+        $this->activityService->create($request);
 
         return back();
     }
@@ -63,7 +58,7 @@ class ActivityController extends Controller
      */
     public function edit($id)
     {
-        return view('activities.activity', ['activity' => Auth::user()->activities()->where('id', $id)->first()]);
+        return view('activities.activity', ['activity' => $this->activityService->show($id)]);
     }
 
     /**
@@ -75,10 +70,7 @@ class ActivityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $activity = Auth::user()->activities()->where('id', $id)->first();
-        $activity->name = $request->name;
-        $activity->description = $request->description;
-        $activity->save();
+        $this->activityService->update($request, $id);
 
         return back();
     }
@@ -91,8 +83,7 @@ class ActivityController extends Controller
      */
     public function destroy($id)
     {
-        $activity = Auth::user()->activities()->where('id', $id)->first();
-        $activity->delete();
+        $this->activityService->delete($id);
 
         return redirect('/activities');
     }
