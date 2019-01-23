@@ -30,4 +30,9 @@ class Activity extends Model
 
         return $total;
     }
+
+    public function calculatePercentOfTotalTimeSpentByDate($date, $totalScreenTime)
+    {
+        return round(($this->calculateTotalTimeSpentByDate($date) / $totalScreenTime) * 100);
+    }
 }

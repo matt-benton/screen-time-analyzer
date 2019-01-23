@@ -9,9 +9,20 @@ use App\Daytime;
 use Carbon\Carbon;
 use App\Segment;
 use App\EyeCondition;
+use App\Services\SessionService;
+use App\Services\SegmentService;
 
 class SessionController extends Controller
 {
+    protected $sessionService;
+    protected $segmentService;
+
+    public function __construct(SessionService $sessionService, SegmentService $segmentService)
+    {
+        $this->sessionService = $sessionService;
+        $this->segmentService = $segmentService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +30,7 @@ class SessionController extends Controller
      */
     public function index()
     {
-        $sessions = Auth::user()->sessions()->orderBy('date', 'desc')->paginate(20);
-
-        return view('sessions.sessions', ['sessions' => $sessions]);
+        return view('sessions.sessions', ['sessions' => $this->sessionService->index()]);
     }
 
     /**
@@ -52,27 +61,8 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
-        $start = new Carbon($request->date . ' ' . $request->start);
-        $end = new Carbon($request->date . ' ' . $request->end);
-
-        $session = new Session;
-        $session->date = $request->date;
-        $session->user_id = Auth::user()->id;
-        $session->daytime_id = $request->daytime;
-        $session->save();
-
-        $segment = new Segment;
-        $segment->start = $start;
-        $segment->end = $end;
-        $segment->session_id = $session->id;
-        $segment->activity_id = $request->activity;
-        $segment->glasses_id = $request->glasses;
-        $segment->monitor_id = $request->monitor;
-        $segment->eye_condition_id = $request->eye_condition;
-        $segment->seat_id = $request->seat;
-        $segment->save();
-
-        $segment->symptoms()->attach($request->symptoms);
+        $session = $this->sessionService->create($request);
+        $segment = $this->segmentService->create($request, $session->id);
 
         return redirect('/sessions/' . $session->id);
     }
@@ -141,64 +131,19 @@ class SessionController extends Controller
         $sessions = Auth::user()->sessions()->whereDate('date', $request->date)->get();
 
         // make calculations
-        $totalScreenTime = $this->getTotalScreenTime($sessions);
-        $avgSessionLength = $this->getAverageSessionLength($sessions);
-        $avgSegmentLength = round($this->getTotalScreenTime($sessions) / Auth::user()->segments()->whereDate('start', $request->date)->count());
-
-        // Calculate how much time was spent on each activity
-        $activities = Auth::user()->activities;
-        $activities->map(function ($activity, $key) use ($date, $totalScreenTime) {
-            $activity->total = $activity->calculateTotalTimeSpentByDate($date);
-            $activity->percent = round(($activity->total / $totalScreenTime) * 100);
-        });
-
-        // Calculate what percentage of total screen time each segment takes
-        foreach ($sessions as $session) {
-            $session->segments->map(function ($segment, $key) use ($totalScreenTime) {
-                $segment->percentage_of_screen_time = $segment->calculateDailyPercentageOfScreenTime($totalScreenTime);
-            });
-        }
+        $totalScreenTime = $this->sessionService->getScreenTimeByDate($date);
+        $avgSessionLength = $this->sessionService->getAverageSessionLength($sessions);
+        $avgSegmentLength = $this->sessionService->getAverageSegmentLength($date);
 
         return view('sessions.show_by_date', [
             'sessions' => $sessions,
             'date' => $date,
-            'totalScreenTime' => $this->formatIntoHoursAndMinutes($totalScreenTime),
+            'totalScreenTime' => $totalScreenTime,
+            'totalScreenTimeFormatted' => $this->formatIntoHoursAndMinutes($totalScreenTime),
             'avgSessionLength' => $this->formatIntoHoursAndMinutes($avgSessionLength),
             'avgSegmentLength' => $this->formatIntoHoursAndMinutes($avgSegmentLength),
-            'activities' => $activities,
+            'activities' => Auth::user()->activities,
         ]);
-    }
-
-    private function getTotalScreenTime($sessions)
-    {
-        $total = 0;
-
-        foreach ($sessions as $session) {
-            $total += $session->totalScreenTime();
-        }
-
-        return $total;
-    }
-
-    private function getAverageSessionLength($sessions)
-    {
-        $total = 0;
-        $numSessions = $sessions->count();
-
-        // add up the length of all sessions
-        foreach ($sessions as $session) {
-            $total += $session->length();
-        }
-
-        // divide the total by the number of sessions
-        return round($total / $numSessions);
-    }
-
-    private function getAverageSegmentLength($sessions)
-    {
-        foreach ($sessions as $session) {
-            round($session->averageSegmentLength());
-        }
     }
 
     private function formatIntoHoursAndMinutes(int $minutes)
