@@ -11,16 +11,19 @@ use App\Segment;
 use App\EyeCondition;
 use App\Services\SessionService;
 use App\Services\SegmentService;
+use App\Services\FormatTimes;
 
 class SessionController extends Controller
 {
     protected $sessionService;
     protected $segmentService;
+    protected $formatTimes;
 
-    public function __construct(SessionService $sessionService, SegmentService $segmentService)
+    public function __construct(SessionService $sessionService, SegmentService $segmentService, FormatTimes $formatTimes)
     {
         $this->sessionService = $sessionService;
         $this->segmentService = $segmentService;
+        $this->formatTimes = $formatTimes;
     }
 
     /**
@@ -125,10 +128,10 @@ class SessionController extends Controller
         //
     }
 
-    public function showByDate(Request $request)
+    public function showByDate($date)
     {
-        $date = new Carbon($request->date);
-        $sessions = Auth::user()->sessions()->whereDate('date', $request->date)->get();
+        $date = new Carbon($date);
+        $sessions = Auth::user()->sessions()->whereDate('date', $date)->get();
 
         // make calculations
         $totalScreenTime = $this->sessionService->getScreenTimeByDate($date);
@@ -139,21 +142,10 @@ class SessionController extends Controller
             'sessions' => $sessions,
             'date' => $date,
             'totalScreenTime' => $totalScreenTime,
-            'totalScreenTimeFormatted' => $this->formatIntoHoursAndMinutes($totalScreenTime),
-            'avgSessionLength' => $this->formatIntoHoursAndMinutes($avgSessionLength),
-            'avgSegmentLength' => $this->formatIntoHoursAndMinutes($avgSegmentLength),
+            'totalScreenTimeFormatted' => $this->formatTimes->hoursAndMinutes($totalScreenTime),
+            'avgSessionLength' => $this->formatTimes->hoursAndMinutes($avgSessionLength),
+            'avgSegmentLength' => $this->formatTimes->hoursAndMinutes($avgSegmentLength),
             'activities' => Auth::user()->activities,
         ]);
-    }
-
-    private function formatIntoHoursAndMinutes(int $minutes)
-    {
-        if ($minutes < 60) {
-            return $minutes . " min";
-        } else {
-            $hours = floor($minutes / 60) . " hr, ";
-            $minutes = $minutes % 60 . " min";
-            return $hours . $minutes;
-        }
     }
 }

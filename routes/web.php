@@ -31,4 +31,4 @@ Route::resources([
     'symptoms' => 'SymptomController',
 ]);
 
-Route::post('/sessions/show_by_date', 'SessionController@showByDate');
+Route::get('/sessions/date/{date}', 'SessionController@showByDate');

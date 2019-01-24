@@ -16,6 +16,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
+    <!-- Icons -->
+    <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -23,7 +26,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -38,11 +41,11 @@
                                 <a class="nav-link" href="/sessions">Sessions</a>
                             </li>
                         </ul>
-                        <form class="form-inline my-2 my-lg-0" action="/sessions/show_by_date" method="POST">
+                        <!-- <form class="form-inline my-2 my-lg-0" action="/sessions/show_by_date" method="POST">
                             @csrf
                             <input class="form-control mr-sm-2" type="date" name="date">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go To Date</button>
-                        </form>
+                        </form> -->
                     @endauth
 
                     <!-- Right Side Of Navbar -->
