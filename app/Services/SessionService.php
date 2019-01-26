@@ -7,12 +7,14 @@ use App\Repositories\SessionRepository;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
+use App\Services\FormatTimes;
 
 class SessionService
 {
-    public function __construct(SessionRepository $session)
+    public function __construct(SessionRepository $session, FormatTimes $formatTimes)
     {
         $this->session = $session;
+        $this->formatTimes = $formatTimes;
     }
 
     public function index()
@@ -55,5 +57,24 @@ class SessionService
     public function getAverageSegmentLength(Carbon $date)
     {
         return round($this->getScreenTimeByDate($date) / Auth::user()->segments()->whereDate('start', $date)->count());
+    }
+
+    public function getHeatmapData()
+    {
+        $today = Carbon::now('America/Chicago');
+        $oneYearAgo = Carbon::now('America/Chicago')->subYear();
+
+        $sessionDates = Auth::user()->sessions()->whereBetween('date', [$oneYearAgo, $today])->pluck('date')->unique();
+
+        $heatmapValues = [];
+
+        foreach ($sessionDates as $date) {
+            array_push($heatmapValues, [
+                'date' => $date->toDateString(),
+                'count' => $this->formatTimes->heatmapCounter($this->getScreenTimeByDate($date)),
+            ]);
+        }
+
+        return $heatmapValues;
     }
 }

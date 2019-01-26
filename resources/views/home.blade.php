@@ -3,6 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-m2-12">
+            <calendar-heatmap :values="{{ $heatmapData }}" :end-date="'2019-01-25'" :max="5" />
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <h5 class="text-muted">Most Recent Days</h5>
         </div>
