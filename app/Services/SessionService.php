@@ -58,23 +58,4 @@ class SessionService
     {
         return round($this->getScreenTimeByDate($date) / Auth::user()->segments()->whereDate('start', $date)->count());
     }
-
-    public function getHeatmapData()
-    {
-        $today = Carbon::now('America/Chicago');
-        $oneYearAgo = Carbon::now('America/Chicago')->subYear();
-
-        $sessionDates = Auth::user()->sessions()->whereBetween('date', [$oneYearAgo, $today])->pluck('date')->unique();
-
-        $heatmapValues = [];
-
-        foreach ($sessionDates as $date) {
-            array_push($heatmapValues, [
-                'date' => $date->toDateString(),
-                'count' => $this->formatTimes->heatmapCounter($this->getScreenTimeByDate($date)),
-            ]);
-        }
-
-        return $heatmapValues;
-    }
 }

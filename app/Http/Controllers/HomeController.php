@@ -47,12 +47,8 @@ class HomeController extends Controller
             array_push($dateCards, $cardInfo);
         }
 
-        $heatmapData = $this->sessionService->getHeatmapData();
-   //  dd(json_encode($heatmapData));
-
         return view('home', [
             'dateCards' => $dateCards,
-            'heatmapData' => json_encode($heatmapData),
         ]);
     }
 }

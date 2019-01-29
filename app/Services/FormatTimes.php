@@ -16,19 +16,4 @@ class FormatTimes
             return $hours . $minutes;
         }
     }
-
-    public function heatmapCounter(int $minutes)
-    {
-        $hours = $minutes / 60;
-
-        if ($hours < 2) {
-            return '1';
-        } else if ($hours < 4) {
-            return '2';
-        } else if ($hours < 6) {
-            return '3';
-        } else if ($hours > 6) {
-            return '4';
-        }
-    }
 }
