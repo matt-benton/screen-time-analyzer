@@ -24,6 +24,7 @@ class SessionController extends Controller
         $this->sessionService = $sessionService;
         $this->segmentService = $segmentService;
         $this->formatTimes = $formatTimes;
+        $this->middleware('auth');
     }
 
     /**

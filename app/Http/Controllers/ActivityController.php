@@ -14,6 +14,8 @@ class ActivityController extends Controller
     public function __construct(ActivityService $activityService)
     {
         $this->activityService = $activityService;
+
+        $this->middleware('auth');
     }
 
     /**
