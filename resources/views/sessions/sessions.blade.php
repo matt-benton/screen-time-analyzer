@@ -10,24 +10,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Sessions</div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Timeframe</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($sessions as $session)
-                            <tr>
-                                <td><a href="/sessions/{{ $session->id }}">{{ $session->date->format('m/d/Y') }} {{ $session->startFormatted() }} - {{ $session->endFormatted() }}</a></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                {{ $sessions->links() }}
-            </div>
+            <session-list></session-list>
         </div>
     </div>
 </div>
