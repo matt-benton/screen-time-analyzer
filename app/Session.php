@@ -76,11 +76,4 @@ class Session extends Model
 
         return $total;
     }
-
-    // public function averageSegmentLength()
-    // {
-    //     foreach ($this->segments as $segment) {
-
-    //     }
-    // }
 }
