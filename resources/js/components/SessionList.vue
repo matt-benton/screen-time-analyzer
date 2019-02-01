@@ -27,9 +27,10 @@
             }
         },
         created() {
+            let that = this;
             axios.get('/api/sessions')
                 .then(function (response) {
-                    console.log(response);
+                    that.sessions = response.data.sessions;
                 })
                 .catch(function (error) {
                     console.log(error);

@@ -10,7 +10,6 @@ class ApiSessionController extends Controller
     public function __construct(SessionService $sessionService)
     {
         $this->sessionService = $sessionService;
-        $this->middleware('api');
     }
 
     /**

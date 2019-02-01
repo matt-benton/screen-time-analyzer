@@ -32,3 +32,12 @@ Route::resources([
 ]);
 
 Route::get('/sessions/date/{date}', 'SessionController@showByDate');
+
+
+// Api routes
+
+Route::middleware('auth', 'throttle:60,1')->group(function () {
+    Route::prefix('api')->group(function () {
+        Route::resource('sessions', 'ApiSessionController');
+    });
+});

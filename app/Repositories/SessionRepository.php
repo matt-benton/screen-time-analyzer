@@ -21,7 +21,7 @@ class SessionRepository
 
     public function all()
     {
-        return Auth::user()->sessions()->orderBy('date', 'desc')->paginate(20);
+        return Auth::user()->sessions()->orderBy('date', 'desc')->get();
     }
 
     public function create(Request $request)
