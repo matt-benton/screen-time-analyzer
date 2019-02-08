@@ -21,7 +21,7 @@ class SessionRepository
 
     public function all()
     {
-        return Auth::user()->sessions()->orderBy('date', 'desc')->get();
+        return Auth::user()->sessions()->with('daytime')->orderBy('date', 'desc')->get();
     }
 
     public function create(Request $request)

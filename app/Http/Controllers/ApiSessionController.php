@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\SessionService;
+use App\Services\FormatTimes;
 
 class ApiSessionController extends Controller
 {
-    public function __construct(SessionService $sessionService)
+    public function __construct(SessionService $sessionService, FormatTimes $formatTimes)
     {
         $this->sessionService = $sessionService;
+        $this->formatTimes = $formatTimes;
     }
 
     /**
@@ -19,7 +21,16 @@ class ApiSessionController extends Controller
      */
     public function index()
     {
-        return response()->json(['sessions' => $this->sessionService->index()]);
+        $sessions = $this->sessionService->index();
+
+        $sessions->map(function ($session) {
+            $session->length = $session->lengthFormatted();
+            $session->start = $session->startFormatted();
+            $session->end = $session->endFormatted();
+            $session->screen_time = $this->formatTimes->hoursAndMinutes($session->totalScreenTime());
+        });
+
+        return response()->json(['sessions' => $sessions]);
     }
 
     /**

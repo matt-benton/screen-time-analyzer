@@ -4,15 +4,24 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Timeframe</th>
+                    <th>Date</th>
+                    <th>Daytime</th>
+                    <th>Length</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Screen Time</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="session in sessions">
                     <td>
-                        {{ session.date }}
-                        <!-- <a href="/sessions/{{ session.id }}">{{ session.date }} {{ $session->startFormatted() }} - {{ $session->endFormatted() }}</a> -->
+                        <a :href="'/sessions/' + session.id">{{ session.date.format('MM/DD/YYYY') }}</a>
                     </td>
+                    <td>{{ session.daytime.name }}</td>
+                    <td>{{ session.length }}</td>
+                    <td>{{ session.start }}</td>
+                    <td>{{ session.end }}</td>
+                    <td>{{ session.screen_time }}</td>
                 </tr>
             </tbody>
         </table>
@@ -27,14 +36,21 @@
             }
         },
         created() {
-            let that = this;
             axios.get('/api/sessions')
-                .then(function (response) {
-                    that.sessions = response.data.sessions;
+                .then(response => {
+                    this.sessions = response.data.sessions;
+                    this.parseSessionDates();
                 })
-                .catch(function (error) {
+                .catch(error => {
                     console.log(error);
                 });
+        },
+        methods: {
+            parseSessionDates() {
+                this.sessions.map(function (session) {
+                    session.date = moment(session.date);
+                });
+            }
         }
     }
 </script>
