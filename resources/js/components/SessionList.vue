@@ -1,23 +1,22 @@
 <template>
     <div class="card">
-        <div class="card-header">Sessions</div>
         <table class="table">
             <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Daytime</th>
-                    <th>Length</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Screen Time</th>
+                <tr class="text-muted">
+                    <th>DATE</th>
+                    <th>LENGTH</th>
+                    <th>START</th>
+                    <th>END</th>
+                    <th>SCREEN TIME</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="session in sessions">
                     <td>
-                        <a :href="'/sessions/' + session.id">{{ session.date.format('MM/DD/YYYY') }}</a>
+                        <a :href="'/sessions/' + session.id">{{ session.date.format('MMM D, YYYY') }}</a>
+                        <br>
+                        <span class="text-muted" style="font-size:0.7rem">{{ session.date.format('dddd') }} <span class="text-lowercase">{{ session.daytime.name }}</span></span>
                     </td>
-                    <td>{{ session.daytime.name }}</td>
                     <td>{{ session.length }}</td>
                     <td>{{ session.start }}</td>
                     <td>{{ session.end }}</td>
