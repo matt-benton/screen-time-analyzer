@@ -10,21 +10,17 @@
                 <hr>
                 <h5>New Session</h5>
                 <hr>
-                <div class="row justify-content-end">
-                    <div class="form-group col-sm-6">
-                        <label for="date-input">Date</label>
-                        <input type="date" class="form-control" id="date-input" name="date">
-                    </div>
+                <div class="form-group">
+                    <label for="date-input">Date</label>
+                    <input type="date" class="form-control" id="date-input" name="date">
                 </div>
-                <div class="row justify-content-end">
-                    <div class="form-group col-sm-6">
-                        <label for="daytime-input">Daytime</label>
-                        <select class="form-control" id="daytime-input" name="daytime">
-                            @foreach ($daytimes as $daytime)
-                                <option value="{{ $daytime->id }}">{{ $daytime->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label for="daytime-input">Daytime</label>
+                    <select class="form-control" id="daytime-input" name="daytime">
+                        @foreach ($daytimes as $daytime)
+                            <option value="{{ $daytime->id }}">{{ $daytime->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <hr>
                 <h5>Add a Segment</h5>
