@@ -34,7 +34,7 @@ class SessionController extends Controller
      */
     public function index()
     {
-        return view('sessions.sessions', ['sessions' => $this->sessionService->index()]);
+        return view('sessions.sessions');
     }
 
     /**
