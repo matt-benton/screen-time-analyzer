@@ -24,8 +24,8 @@ class SessionService
         $sessions->map(function ($session) {
             $session->lengthFormatted = $session->lengthFormatted();
             $session->length = $session->length();
-            $session->start = $session->startFormatted();
-            $session->end = $session->endFormatted();
+            $session->start = $session->start()->toDateTimeString();
+            $session->end = $session->end()->toDateTimeString();
             $session->screen_time = $this->formatTimes->hoursAndMinutes($session->totalScreenTime());
         });
 
