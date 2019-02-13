@@ -37,7 +37,7 @@
                     <label for="seating-input">Seating</label>
                     <select class="form-control" id="seating-input" name="seat">
                         @foreach ($seats as $seat)
-                            <option value="{{ $seat->id }}">{{ $seat->name }}</option>
+                            <option value="{{ $seat->id }}" @if ($mostRecentSegment->seat_id === $seat->id) selected @endif>{{ $seat->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -45,7 +45,7 @@
                     <label for="monitor-input">Monitor</label>
                     <select class="form-control" id="monitor-input" name="monitor">
                         @foreach ($monitors as $monitor)
-                            <option value="{{ $monitor->id }}">{{ $monitor->name }}</option>
+                            <option value="{{ $monitor->id }}" @if ($mostRecentSegment->monitor_id === $monitor->id) selected @endif>{{ $monitor->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -53,7 +53,7 @@
                     <label for="glasses-input">Glasses</label>
                     <select class="form-control" id="glasses-input" name="glasses">
                         @foreach ($glasses as $glass)
-                            <option value="{{ $glass->id }}">{{ $glass->name }}</option>
+                            <option value="{{ $glass->id }}" @if ($mostRecentSegment->glasses_id === $glass->id) selected @endif>{{ $glass->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -61,13 +61,14 @@
                     <label for="activity-input">Activity</label>
                     <select class="form-control" id="activity-input" name="activity">
                         @foreach ($activities as $activity)
-                            <option value="{{ $activity->id }}">{{ $activity->name }}</option>
+                            <option value="{{ $activity->id }}" @if ($mostRecentSegment->activity_id === $activity->id) selected @endif>{{ $activity->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="eye-condition-input">Eye Condition</label>
                     <select class="form-control" id="eye-condition-input" name="eye_condition">
+                        <option value="0"></option>
                         @foreach ($eyeConditions as $condition)
                             <option value="{{ $condition->id }}">{{ $condition->name }}</option>
                         @endforeach

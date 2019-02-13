@@ -83,6 +83,9 @@ class SessionController extends Controller
         $session = $user->sessions()->where('id', $id)->first();
         $segments = $session->segments()->with('seat', 'monitor', 'activity', 'eyeCondition', 'glasses', 'symptoms')->get();
 
+        // Get most recent segment for this session
+        $mostRecentSegment = $segments->sortBy('end')->pop();
+
         return view('sessions.session', [
             'session' => $session,
             'segments' => $segments,
@@ -92,6 +95,7 @@ class SessionController extends Controller
             'eyeConditions' => EyeCondition::all(),
             'symptoms' => $user->symptoms,
             'glasses' => $user->glasses,
+            'mostRecentSegment' => $mostRecentSegment,
         ]);
     }
 
