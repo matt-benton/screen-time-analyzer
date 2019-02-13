@@ -19,7 +19,17 @@ class SessionService
 
     public function index()
     {
-        return $this->session->all();
+        $sessions = $this->session->all();
+
+        $sessions->map(function ($session) {
+            $session->lengthFormatted = $session->lengthFormatted();
+            $session->length = $session->length();
+            $session->start = $session->startFormatted();
+            $session->end = $session->endFormatted();
+            $session->screen_time = $this->formatTimes->hoursAndMinutes($session->totalScreenTime());
+        });
+
+        return $sessions;
     }
 
     public function create(Request $request)

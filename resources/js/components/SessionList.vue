@@ -4,7 +4,7 @@
             <thead>
                 <tr class="text-muted">
                     <th>DATE</th>
-                    <th>LENGTH</th>
+                    <th><a href="#" @click="sortByLength">LENGTH</a></th>
                     <th>START</th>
                     <th>END</th>
                     <th>SCREEN TIME</th>
@@ -17,7 +17,7 @@
                         <br>
                         <span class="text-muted" style="font-size:0.7rem">{{ session.date.format('dddd') }} <span class="text-lowercase">{{ session.daytime.name }}</span></span>
                     </td>
-                    <td>{{ session.length }}</td>
+                    <td>{{ session.lengthFormatted }}</td>
                     <td>{{ session.start }}</td>
                     <td>{{ session.end }}</td>
                     <td>{{ session.screen_time }}</td>
@@ -31,24 +31,42 @@
     export default {
         data() {
             return {
-                sessions: []
+                sessions: [],
+                lengthSortDirection: 'asc',
             }
         },
         created() {
-            axios.get('/api/sessions')
-                .then(response => {
-                    this.sessions = response.data.sessions;
-                    this.parseSessionDates();
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            this.getSessions();
         },
         methods: {
-            parseSessionDates() {
-                this.sessions.map(function (session) {
+            getSessions() {
+                axios.get('/api/sessions')
+                    .then(response => {
+                        this.sessions = this.parseSessionDates(response.data.sessions);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            },
+            parseSessionDates(sessions) {
+                sessions.map(function (session) {
                     session.date = moment(session.date);
                 });
+
+                return sessions;
+            },
+            sortByLength() {
+                if (this.lengthSortDirection === 'asc') {
+                    this.lengthSortDirection = 'desc';
+                    this.sessions.sort((a, b) => {
+                        return b.length > a.length;
+                    });
+                } else {
+                    this.lengthSortDirection = 'asc';
+                    this.sessions.sort((a, b) => {
+                        return a.length > b.length;
+                    });
+                }
             }
         }
     }
