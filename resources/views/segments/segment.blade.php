@@ -13,13 +13,23 @@
                 <h5>Edit Segment</h5>
                 <hr>
                 <div class="form-group">
-                    <label for="start-input">Start</label>
-                    <input type="time" class="form-control" id="start-input" name="start" value="{{ $segment->start->format('H:i') }}">
+                    <label for="start-date-input">Start Date</label>
+                    <input type="date" class="form-control" id="start-date-input" name="start_date" value="{{ $segment->start->toDateString() }}">
                 </div>
                 <div class="form-group">
-                    <label for="end-input">End</label>
-                    <input type="time" class="form-control" id="end-input" name="end" value="{{ $segment->end->format('H:i') }}">
+                    <label for="start-time-input">Start Time</label>
+                    <input type="time" class="form-control" id="start-time-input" name="start_time" value="{{ $segment->start->format('H:i') }}">
                 </div>
+                <hr>
+                <div class="form-group">
+                    <label for="end-date-input">End Date</label>
+                    <input type="date" class="form-control" id="end-date-input" name="end_date" value="{{ $segment->end->toDateString() }}">
+                </div>
+                <div class="form-group">
+                    <label for="end-time-input">End Time</label>
+                    <input type="time" class="form-control" id="end-time-input" name="end_time" value="{{ $segment->end->format('H:i') }}">
+                </div>
+                <hr>
                 <div class="form-group">
                     <label for="seating-input">Seating</label>
                     <select class="form-control" id="seating-input" name="seat">
