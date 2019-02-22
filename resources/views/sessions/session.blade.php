@@ -5,20 +5,30 @@
 <div class="container">
     <!-- List of segment -->
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12 col-lg-8">
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active">{{ $session->date->format('m-d-Y') }}</li>
                 </ol>
             </nav>
-            @session_table(['session' => $session])
-            @endsession_table
+
+            <div class="d-none d-md-block">
+                @session_table(['session' => $session])
+                @endsession_table
+            </div>
+
+            <div class="d-md-none">
+                @foreach ($session->segments as $segment)
+                    @segment_card(['segment' => $segment])
+                    @endsegment_card
+                @endforeach
+            </div>
         </div>
     </div>
 
     <!-- Form for adding segments -->
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12 col-lg-8">
             <form action="/segments" method="POST">
                 @csrf
                 <input type="hidden" name="session" value="{{ $session->id }}">

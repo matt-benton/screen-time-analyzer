@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::component('components.session_table', 'session_table');
         Blade::component('components.eye_status_bar', 'eye_status_bar');
+        Blade::component('components.segment_card', 'segment_card');
     }
 
     /**
