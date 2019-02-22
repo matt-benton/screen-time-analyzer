@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row justify-content-center pb-3">
-        <div class="col-md-8">
+        <div class="col-md-12 col-lg-8">
             <form action="/sessions" method="POST">
                 @csrf
                 <hr>
