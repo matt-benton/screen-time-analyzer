@@ -4,10 +4,10 @@
             <thead>
                 <tr class="text-muted">
                     <th><a href="#" @click="sortByDate">DATE</a></th>
-                    <th><a href="#" @click="sortByLength">LENGTH</a></th>
-                    <th><a href="#" @click="sortByStart">START</a></th>
-                    <th><a href="#" @click="sortByEnd">END</a></th>
-                    <th>SCREEN TIME</th>
+                    <th class="d-none d-md-table-cell"><a href="#" @click="sortByLength">LENGTH</a></th>
+                    <th class="d-none d-md-table-cell"><a href="#" @click="sortByStart">START</a></th>
+                    <th class="d-none d-md-table-cell"><a href="#" @click="sortByEnd">END</a></th>
+                    <th class="d-none d-md-table-cell">SCREEN TIME</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,10 +17,10 @@
                         <br>
                         <span class="text-muted" style="font-size:0.7rem">{{ session.date.format('dddd') }} <span class="text-lowercase">{{ session.daytime.name }}</span></span>
                     </td>
-                    <td>{{ session.lengthFormatted }}</td>
-                    <td>{{ session.start.format('h:mm a') }}</td>
-                    <td>{{ session.end.format('h:mm a') }}</td>
-                    <td>{{ session.screen_time }}</td>
+                    <td class="d-none d-md-table-cell">{{ session.lengthFormatted }}</td>
+                    <td class="d-none d-md-table-cell">{{ session.start.format('h:mm a') }}</td>
+                    <td class="d-none d-md-table-cell">{{ session.end.format('h:mm a') }}</td>
+                    <td class="d-none d-md-table-cell">{{ session.screen_time }}</td>
                 </tr>
             </tbody>
         </table>
