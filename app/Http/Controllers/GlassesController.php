@@ -12,7 +12,7 @@ class GlassesController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -83,6 +83,13 @@ class GlassesController extends Controller
         $glasses = Auth::user()->glasses()->where('id', $id)->first();
         $glasses->name = $request->name;
         $glasses->description = $request->description;
+
+        if ($request->active) {
+            $glasses->active = 1;
+        } else {
+            $glasses->active = 0;
+        }
+
         $glasses->save();
 
         return back();

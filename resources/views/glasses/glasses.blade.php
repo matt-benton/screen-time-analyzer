@@ -40,6 +40,12 @@
                     <label for="description-textarea">Description</label>
                     <textarea class="form-control" id="description-textarea" name="description">{{ $glasses->description }}</textarea>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="active" id="active" @if ($glasses->active) checked @endif>
+                    <label class="form-check-label" for="active">
+                        Active
+                    </label>
+                </div>
                 <div class="row justify-content-end pr-3">
                     <input type="submit" class="btn btn-outline-primary mr-2" value="Save">
                     <button type="button" class="btn btn-outline-danger mr-2" id="delete-button">Delete</button>

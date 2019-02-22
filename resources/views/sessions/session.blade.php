@@ -60,12 +60,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="glasses-input">Glasses</label>
-                    <select class="form-control" id="glasses-input" name="glasses">
-                        @foreach ($glasses as $glass)
-                            <option value="{{ $glass->id }}" @if ($mostRecentSegment->glasses_id === $glass->id) selected @endif>{{ $glass->name }}</option>
-                        @endforeach
-                    </select>
+                    @component('components.inputs.glasses-select', ['glasses' => $glasses, 'mostRecentSegment' => $mostRecentSegment])
+                    @endcomponent
                 </div>
                 <div class="form-group">
                     <label for="activity-input">Activity</label>
@@ -88,7 +84,7 @@
                     <label for="symptom-input">Symptoms</label>
                     <select multiple class="form-control" id="symptom-input" name="symptoms[]">
                         @foreach ($symptoms as $symptom)
-                            <option value="{{ $symptom->id }}">{{ $symptom->name }}</option>
+                            <option value="{{ $symptom->id }}" disabled>{{ $symptom->name }}</option>
                         @endforeach
                     </select>
                 </div>
