@@ -3,7 +3,9 @@
     @foreach ($glasses as $glass)
         <option
                 value="{{ $glass->id }}"
-                @if ($mostRecentSegment->glasses_id === $glass->id) selected @endif
+                @if ($segment)
+                    @if ($segment->glasses_id === $glass->id) selected @endif
+                @endif
                 @if ($glass->active === 0) disabled @endif>{{ $glass->name }}</option>
     @endforeach
 </select>

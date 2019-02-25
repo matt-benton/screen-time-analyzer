@@ -60,7 +60,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    @component('components.inputs.glasses-select', ['glasses' => $glasses, 'mostRecentSegment' => $mostRecentSegment])
+                    @component('components.inputs.glasses-select', ['glasses' => $glasses, 'segment' => $mostRecentSegment])
                     @endcomponent
                 </div>
                 <div class="form-group">
@@ -84,7 +84,7 @@
                     <label for="symptom-input">Symptoms</label>
                     <select multiple class="form-control" id="symptom-input" name="symptoms[]">
                         @foreach ($symptoms as $symptom)
-                            <option value="{{ $symptom->id }}" disabled>{{ $symptom->name }}</option>
+                            <option value="{{ $symptom->id }}">{{ $symptom->name }}</option>
                         @endforeach
                     </select>
                 </div>

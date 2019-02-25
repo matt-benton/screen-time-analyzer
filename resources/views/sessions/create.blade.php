@@ -50,12 +50,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="glasses-input">Glasses</label>
-                    <select class="form-control" id="glasses-input" name="glasses">
-                        @foreach ($glasses as $glass)
-                            <option value="{{ $glass->id }}">{{ $glass->name }}</option>
-                        @endforeach
-                    </select>
+                    @component('components.inputs.glasses-select', ['glasses' => $glasses, 'segment' => null])
+                    @endcomponent
                 </div>
                 <div class="form-group">
                     <label for="activity-input">Activity</label>

@@ -8,6 +8,7 @@ use App\Segment;
 use Carbon\Carbon;
 use App\Daytime;
 use App\EyeCondition;
+use App\Services\SegmentService;
 
 class SegmentController extends Controller
 {
