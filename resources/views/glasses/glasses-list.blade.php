@@ -29,6 +29,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Active</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +37,11 @@
                             <tr>
                                 <td><a href="/glasses/{{ $glass->id }}/edit">{{ $glass->name }}</a></td>
                                 <td>{{ $glass->description }}</td>
+                                <td>
+                                    @if ($glass->active === 1)
+                                        <ion-icon name="checkmark"></ion-icon>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
