@@ -22,6 +22,7 @@ window.moment = require('moment');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('session-list', require('./components/SessionList.vue').default);
+Vue.component('activity-stat-display', require('./components/ActivityStatDisplay.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

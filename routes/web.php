@@ -38,6 +38,7 @@ Route::get('/sessions/date/{date}', 'SessionController@showByDate');
 
 Route::middleware('auth', 'throttle:60,1')->group(function () {
     Route::prefix('api')->group(function () {
-        Route::resource('sessions', 'ApiSessionController');
+        Route::resource('sessions', 'API\SessionController');
+        Route::get('activities/{date}', 'API\ActivityController@indexWithStats');
     });
 });

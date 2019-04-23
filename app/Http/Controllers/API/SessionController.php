@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Services\SessionService;
 use App\Services\FormatTimes;
+use App\Http\Controllers\Controller;
 use Auth;
 
-class ApiSessionController extends Controller
+class SessionController extends Controller
 {
-    public function __construct(SessionService $sessionService, FormatTimes $formatTimes)
+    public function __construct(SessionService $sessionService)
     {
         $this->sessionService = $sessionService;
-        $this->formatTimes = $formatTimes;
     }
 
     /**
