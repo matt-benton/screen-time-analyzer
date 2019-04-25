@@ -40,10 +40,9 @@ class HomeController extends Controller
             $cardInfo = [];
             $cardInfo['date'] = $date;
             $cardInfo['sessions'] = Auth::user()->sessions()->whereDate('date', $date)->get();
-            $cardInfo['totalScreenTime'] = $this->sessionService->getScreenTimeByDate($date);
+            $cardInfo['totalScreenTime'] = $this->sessionService->getScreenTimeByDateRange($date, $date);
             $cardInfo['totalScreenTimeFormatted'] = $this->formatTimes->hoursAndMinutes($cardInfo['totalScreenTime']);
             $cardInfo['averageSegmentLength'] = $this->formatTimes->hoursAndMinutes($this->sessionService->getAverageSegmentLength($date));
-            $cardInfo['totalScreenTime'] = $this->sessionService->getScreenTimeByDate($date);
             array_push($dateCards, $cardInfo);
         }
 

@@ -22,11 +22,44 @@ class ActivityController extends Controller
     {
         $activities = Auth::user()->activities;
 
-        $totalScreenTime = $this->sessionService->getScreenTimeByDate(new Carbon($date));
+        $date = new Carbon($date);
+
+        $totalScreenTime = $this->sessionService->getScreenTimeByDate($date);
 
         foreach ($activities as $activity) {
             $activity->total = $this->formatTimes->hoursAndMinutes($activity->calculateTotalTimeSpentByDate($date));
-            $activity->percent = $activity->calculatePercentOfTotalTimeSpentByDate($date, $totalScreenTime);
+            $activity->percent = $activity->calculatePercentOfTotalTimeSpentByDate($date);
+        }
+
+        return response($activities);
+    }
+
+    public function getByDate(Request $request)
+    {
+        $date = new Carbon($request->date);
+        $totalScreenTime = $this->sessionService->getScreenTimeByDate($date);
+
+        $activities = Auth::user()->activities;
+
+        foreach ($activities as $activity) {
+            $activity->total = $activity->calculateTotalTimeSpentByDate($date);
+            $activity->percent = $activity->calculatePercentOfTotalTimeSpentByDate($date);
+        }
+
+        return response($activities);
+    }
+
+    public function getByDateRange(Request $request)
+    {
+        $start = new Carbon($request->start);
+        $end = new Carbon($request->end);
+        $totalScreenTime = $this->sessionService->getScreenTimeByDateRange($start, $end);
+
+        $activities = Auth::user()->activities;
+
+        foreach ($activities as $activity) {
+            $activity->total = $activity->calculateTotalTimeSpentByDateRange($start, $end);
+            $activity->percent = $activity->calculatePercentOfTotalTimeSpentByDateRange($start, $end);
         }
 
         return response($activities);

@@ -22,7 +22,8 @@ window.moment = require('moment');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('session-list', require('./components/SessionList.vue').default);
-Vue.component('activity-stat-display', require('./components/ActivityStatDisplay.vue').default);
+Vue.component('single-day-activity-display', require('./components/SingleDayActivityDisplay.vue').default);
+Vue.component('multi-day-activity-display', require('./components/MultiDayActivityDisplay.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -41,13 +41,14 @@ class SessionService
     {
         $sessions = Auth::user()->sessions()->whereDate('date', $date)->get();
 
-        $total = 0;
+        return $this->totalScreenTime($sessions);
+    }
 
-        foreach ($sessions as $session) {
-            $total += $session->totalScreenTime();
-        }
+    public function getScreenTimeByDateRange(Carbon $start, Carbon $end)
+    {
+        $sessions = Auth::user()->sessions()->whereBetween('date', [$start, $end])->get();
 
-        return $total;
+        return $this->totalScreenTime($sessions);
     }
 
     public function getAverageSessionLength($sessions)
@@ -66,6 +67,17 @@ class SessionService
 
     public function getAverageSegmentLength(Carbon $date)
     {
-        return round($this->getScreenTimeByDate($date) / Auth::user()->segments()->whereDate('start', $date)->count());
+        return round($this->getScreenTimeByDateRange($date, $date) / Auth::user()->segments()->whereDate('start', $date)->count());
+    }
+
+    public function totalScreenTime($sessions)
+    {
+        $total = 0;
+
+        foreach ($sessions as $session) {
+            $total += $session->totalScreenTime();
+        }
+
+        return $total;
     }
 }

@@ -17,4 +17,15 @@ class SegmentService
     {
         return $this->segment->create($request, $session_id);
     }
+
+    public function totalScreenTime($segments)
+    {
+        $total = 0;
+
+        foreach ($segments as $segment) {
+            $total += $segment->length();
+        }
+
+        return $total;
+    }
 }

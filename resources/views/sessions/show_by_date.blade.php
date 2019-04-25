@@ -19,7 +19,7 @@
                     <h5 class="text-right pb-4">{{ $avgSegmentLength }}</h5>
                 </div>
             </div>
-            <activity-stat-display date="{{ $date->toDateString() }}"></activity-stat-display>
+            <single-day-activity-display date="{{ $date->toDateString() }}"></single-day-activity-display>
         </div>
 
         <!-- Sessions list -->
