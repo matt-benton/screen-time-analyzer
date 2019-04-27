@@ -53,7 +53,7 @@ class ActivityController extends Controller
     {
         $start = new Carbon($request->start);
         $end = new Carbon($request->end);
-        $totalScreenTime = $this->sessionService->getScreenTimeByDateRange($start, $end);
+        $totalScreenTime = $this->sessionService->getScreenTimeByDateRange(Auth::user(), $start, $end);
 
         $activities = Auth::user()->activities;
 

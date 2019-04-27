@@ -6,8 +6,10 @@ use App\Session;
 use App\Repositories\SessionRepository;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Auth;
 use App\Services\FormatTimes;
+use App\User;
+
+use Auth;
 
 class SessionService
 {
@@ -44,9 +46,9 @@ class SessionService
         return $this->totalScreenTime($sessions);
     }
 
-    public function getScreenTimeByDateRange(Carbon $start, Carbon $end)
+    public function getScreenTimeByDateRange(User $user, Carbon $start, Carbon $end)
     {
-        $sessions = Auth::user()->sessions()->whereBetween('date', [$start, $end])->get();
+        $sessions = $user->sessions()->whereBetween('date', [$start, $end])->get();
 
         return $this->totalScreenTime($sessions);
     }
@@ -67,7 +69,7 @@ class SessionService
 
     public function getAverageSegmentLength(Carbon $date)
     {
-        return round($this->getScreenTimeByDateRange($date, $date) / Auth::user()->segments()->whereDate('start', $date)->count());
+        return round($this->getScreenTimeByDate($date) / Auth::user()->segments()->whereDate('start', $date)->count());
     }
 
     public function totalScreenTime($sessions)

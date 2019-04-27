@@ -2,15 +2,20 @@
     <div class="card">
         <div class="card-body">
             <form>
-                <div class="form-group">
-                    <label for="start">Start Date</label>
-                    <input type="date" class="form-control" name="start" v-model="start">
+                <div class="form-row">
+                    <div class="form-group mr-2">
+                        <label for="start">Start Date</label>
+                        <input type="date" class="form-control" name="start" v-model="start">
+                    </div>
+                    <div class="form-group mr-2">
+                        <label for="start">End Date</label>
+                        <input type="date" class="form-control" name="end" v-model="end">
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp</label>
+                        <button class="btn btn-light form-control" @click.prevent="getActivities">Submit</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="start">End Date</label>
-                    <input type="date" class="form-control" name="end" v-model="end">
-                </div>
-                <button class="btn btn-light" @click.prevent="getActivities">Submit</button>
             </form>
         </div>
         <table class="table">
@@ -28,8 +33,8 @@
         data() {
             return {
                 activities: [],
-                start: '2019-04-16',
-                end: '2019-04-22',
+                start: moment().subtract(7, 'days').format('YYYY-MM-DD'),
+                end: moment().format('YYYY-MM-DD'),
             }
         },
         created() {

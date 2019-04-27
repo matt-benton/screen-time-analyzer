@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <multi-day-activity-display></multi-day-activity-display>
+        <div class="col-md-12">
+            <multi-day-activity-display></multi-day-activity-display>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
