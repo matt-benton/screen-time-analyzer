@@ -37,11 +37,6 @@
                                 <a class="nav-link" href="/sessions">Sessions</a>
                             </li>
                         </ul>
-                        <!-- <form class="form-inline my-2 my-lg-0" action="/sessions/show_by_date" method="POST">
-                            @csrf
-                            <input class="form-control mr-sm-2" type="date" name="date">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go To Date</button>
-                        </form> -->
                     @endauth
 
                     <!-- Right Side Of Navbar -->
