@@ -53,13 +53,17 @@ class ActivityController extends Controller
     {
         $start = new Carbon($request->start);
         $end = new Carbon($request->end);
+        $numDays = $end->diffInDays($start);
         $totalScreenTime = $this->sessionService->getScreenTimeByDateRange(Auth::user(), $start, $end);
 
         $activities = Auth::user()->activities;
 
         foreach ($activities as $activity) {
-            $activity->total = $activity->calculateTotalTimeSpentByDateRange($start, $end);
+            $total = $activity->calculateTotalTimeSpentByDateRange($start, $end);
+
+            $activity->total = $this->formatTimes->hoursAndMinutes($total);
             $activity->percent = $activity->calculatePercentOfTotalTimeSpentByDateRange($start, $end);
+            $activity->average = $this->formatTimes->hoursAndMinutes($total / $numDays);
         }
 
         return response($activities);

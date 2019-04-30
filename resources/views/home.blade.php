@@ -4,15 +4,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <multi-day-activity-display></multi-day-activity-display>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
             <h5 class="text-muted">Most Recent Days</h5>
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center pb-4">
         @foreach ($dateCards as $card)
             <div class="col-md-4">
                 <div class="card">
@@ -38,6 +33,11 @@
                 </div>
             </div>
         @endforeach
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <multi-day-activity-display></multi-day-activity-display>
+        </div>
     </div>
 </div>
 @endsection

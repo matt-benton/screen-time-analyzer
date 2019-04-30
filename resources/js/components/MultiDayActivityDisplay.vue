@@ -1,29 +1,36 @@
 <template>
-    <div class="card">
-        <div class="card-body">
+    <div>
+        <div class="col-md-12">
             <form>
                 <div class="form-row">
                     <div class="form-group mr-2">
-                        <label for="start">Start Date</label>
-                        <input type="date" class="form-control" name="start" v-model="start">
+                        <label class="text-muted" for="start">Start Date</label>
+                        <input type="date" class="form-control" name="start" v-model="start" @change="getActivities">
                     </div>
                     <div class="form-group mr-2">
-                        <label for="start">End Date</label>
-                        <input type="date" class="form-control" name="end" v-model="end">
-                    </div>
-                    <div class="form-group">
-                        <label>&nbsp</label>
-                        <button class="btn btn-light form-control" @click.prevent="getActivities">Submit</button>
+                        <label class="text-muted" for="start">End Date</label>
+                        <input type="date" class="form-control" name="end" v-model="end" @change="getActivities">
                     </div>
                 </div>
             </form>
         </div>
-        <table class="table">
-            <tr v-for="activity in activities">
-                <td>{{ activity.name}}</td>
-                <td>{{ activity.total }}</td>
-                <td>{{ activity.percent }}</td>
-            </tr>
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr class="text-muted text-uppercase">
+                    <th>Activity</th>
+                    <th>Average Per Day</th>
+                    <th>Total</th>
+                    <th>% of Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="activity in activities">
+                    <td>{{ activity.name }}</td>
+                    <td>{{ activity.average }}</td>
+                    <td>{{ activity.total }}</td>
+                    <td>{{ activity.percent }}%</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </template>

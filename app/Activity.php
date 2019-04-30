@@ -29,7 +29,7 @@ class Activity extends Model
 
     public function calculateTotalTimeSpentByDateRange(Carbon $start, Carbon $end)
     {
-        $segments = $this->segments()->whereBetween('start', [$start, $end])->get();
+        $segments = $this->segments()->whereBetween('start', [$start->startOfDay(), $end->endOfDay()])->get();
 
         return $this->calculateTotalScreenTime($segments);
     }
@@ -45,9 +45,16 @@ class Activity extends Model
 
     public function calculatePercentOfTotalTimeSpentByDateRange(Carbon $start, Carbon $end)
     {
-        $segments = Auth::user()->segments()->whereBetween('start', [$start, $end])->get();
+        $segments = Auth::user()->segments()
+            ->where('start', '>=', $start)
+            ->where('end', '<=', $end)
+            ->get();
 
         $totalScreenTime = $this->calculateTotalScreenTime($segments);
+
+        if ($totalScreenTime === 0) {
+            return 0;
+        }
 
         return round(($this->calculateTotalTimeSpentByDateRange($start, $end) / $totalScreenTime) * 100);
     }

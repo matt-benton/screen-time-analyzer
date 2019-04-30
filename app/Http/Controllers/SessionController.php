@@ -139,7 +139,7 @@ class SessionController extends Controller
         $sessions = Auth::user()->sessions()->whereDate('date', $date)->get();
 
         // make calculations
-        $totalScreenTime = $this->sessionService->getScreenTimeByDateRange($date, $date);
+        $totalScreenTime = $this->sessionService->getScreenTimeByDate($date);
         $avgSessionLength = $this->sessionService->getAverageSessionLength($sessions);
         $avgSegmentLength = $this->sessionService->getAverageSegmentLength($date);
 
