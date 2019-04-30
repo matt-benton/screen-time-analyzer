@@ -36,6 +36,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/sessions">Sessions</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-info" href="/sessions/create"><ion-icon name="add"></ion-icon> New Session</a>
+                            </li>
                         </ul>
                     @endauth
 
@@ -53,6 +56,7 @@
                                 </li>
                             @endif
                         @else
+
                             <!-- Setup -->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Setup</a>
