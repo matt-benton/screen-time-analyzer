@@ -4,6 +4,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+            <current-day-summary></current-day-summary>
+        </div>
+    </div>
+    <hr>
+    <div class="row pt-4">
+        <div class="col-md-12">
             <h5 class="text-muted">Most Recent Days</h5>
         </div>
     </div>
@@ -34,7 +40,8 @@
             </div>
         @endforeach
     </div>
-    <div class="row">
+    <hr>
+    <div class="row pt-4">
         <div class="col-md-12">
             <multi-day-activity-display></multi-day-activity-display>
         </div>
