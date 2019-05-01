@@ -26,9 +26,9 @@ class SessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getByPage($pageNumber)
     {
-        return response()->json(['sessions' => $this->sessionService->index()]);
+        return response()->json(['sessions' => $this->sessionService->list($pageNumber)]);
     }
 
     public function getTotalScreenTime($year, $month, $day)

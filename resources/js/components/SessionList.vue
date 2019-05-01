@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <table class="table">
+        <table class="table mb-0">
             <thead>
                 <tr class="text-muted">
                     <th><a href="#" @click="sortByDate">DATE</a></th>
@@ -24,6 +24,12 @@
                 </tr>
             </tbody>
         </table>
+        <div class="card-body">
+            <div class="form">
+                <button type="button" class="btn btn-outline-secondary" @click="decrementPage">Previous</button>
+                <button type="button" class="btn btn-outline-secondary" @click="incrementPage">Next</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -38,6 +44,7 @@
                     start: 'earliest',
                     end: 'earliest',
                 },
+                pageNumber: 1
             }
         },
         created() {
@@ -45,7 +52,7 @@
         },
         methods: {
             getSessions() {
-                axios.get('/api/sessions')
+                axios.get(`/api/sessions/page/${this.pageNumber}`)
                     .then(response => {
                         this.sessions = response.data.sessions;
                         this.parseSessionDates();
@@ -106,6 +113,17 @@
                     this.sorters.end = 'earliest';
                     this.sessions.sort((a, b) => b.end.format('HH:mm') > a.end.format('HH:mm'));
                 }
+            },
+            incrementPage() {
+                this.pageNumber++;
+                this.getSessions();
+            },
+            decrementPage() {
+                if (this.pageNumber > 1) {
+                    this.pageNumber--;
+                }
+
+                this.getSessions();
             }
         }
     }

@@ -19,9 +19,9 @@ class SessionService
         $this->formatTimes = $formatTimes;
     }
 
-    public function index()
+    public function list(int $pageNumber)
     {
-        $sessions = $this->session->all();
+        $sessions = $this->session->limitedIndex($pageNumber, 10);
 
         $sessions->map(function ($session) {
             $session->lengthFormatted = $session->lengthFormatted();

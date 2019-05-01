@@ -24,6 +24,13 @@ class SessionRepository
         return Auth::user()->sessions()->with('daytime')->orderBy('date', 'desc')->get();
     }
 
+    public function limitedIndex(int $pageNumber, int $numSessions)
+    {
+        $skipAmount = ($pageNumber - 1) * $numSessions;
+
+        return Auth::user()->sessions()->with('daytime')->orderBy('date', 'desc')->skip($skipAmount)->take($numSessions)->get();
+    }
+
     public function create(Request $request)
     {
         $start = new Carbon($request->date . ' ' . $request->start);

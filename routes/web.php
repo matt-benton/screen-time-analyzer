@@ -38,7 +38,7 @@ Route::get('/sessions/date/{date}', 'SessionController@showByDate');
 
 Route::middleware('auth', 'throttle:60,1')->group(function () {
     Route::prefix('api')->group(function () {
-        Route::resource('sessions', 'API\SessionController');
+        Route::get('sessions/page/{pageNumber}', 'API\SessionController@getByPage');
         Route::get('sessions/{year}/{month}/{day}', 'API\SessionController@getTotalScreenTime');
         Route::post('activities', 'API\ActivityController@getByDateRange');
         Route::get('activities/{date}', 'API\ActivityController@indexWithStats');
