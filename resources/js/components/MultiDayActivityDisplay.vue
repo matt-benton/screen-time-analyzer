@@ -17,18 +17,18 @@
         <table class="table table-striped mb-0">
             <thead>
                 <tr class="text-muted text-uppercase">
-                    <th>Activity</th>
-                    <th>Average Per Day</th>
-                    <th>Total</th>
-                    <th>% of Total</th>
+                    <td>Activity</td>
+                    <td align="right">Average Per Day</td>
+                    <td align="right">Total</td>
+                    <td align="right">% of Total</td>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="activity in activities">
                     <td>{{ activity.name }}</td>
-                    <td>{{ activity.average }}</td>
-                    <td>{{ activity.total }}</td>
-                    <td>{{ activity.percent }}%</td>
+                    <td align="right">{{ activity.average }}</td>
+                    <td align="right">{{ activity.total }}</td>
+                    <td align="right">{{ activity.percent }}%</td>
                 </tr>
             </tbody>
         </table>
