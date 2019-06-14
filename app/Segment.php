@@ -36,6 +36,11 @@ class Segment extends Model
         return $this->belongsTo('App\Monitor');
     }
 
+    public function monitors()
+    {
+        return $this->belongsToMany('App\Monitor');
+    }
+
     public function symptoms()
     {
         return $this->belongsToMany('App\Symptom');

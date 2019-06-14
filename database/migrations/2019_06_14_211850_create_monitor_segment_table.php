@@ -15,8 +15,8 @@ class CreateMonitorSegmentTable extends Migration
     {
         Schema::create('monitor_segment', function (Blueprint $table) {
        		$table->increments('id');
-            $table->bigInteger('monitor_id');
-            $table->bigInteger('segment_id');
+            $table->unsignedInteger('monitor_id');
+            $table->unsignedInteger('segment_id');
             $table->timestamps();
 
             $table->foreign('monitor_id')->references('id')->on('monitors');
