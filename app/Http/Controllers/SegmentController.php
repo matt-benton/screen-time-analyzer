@@ -54,13 +54,13 @@ class SegmentController extends Controller
         $segment->start = $start;
         $segment->end = $end;
         $segment->seat_id = $request->seat;
-        $segment->monitor_id = $request->monitor;
         $segment->activity_id = $request->activity;
         $segment->eye_condition_id = $request->eye_condition;
         $segment->glasses_id = $request->glasses;
         $segment->session_id = $session->id;
         $segment->save();
         $segment->symptoms()->attach($request->symptoms);
+        $segment->monitors()->attach($request->monitors);
 
         return back();
     }
@@ -116,7 +116,7 @@ class SegmentController extends Controller
         $segment->start = $start;
         $segment->end = $end;
         $segment->seat_id = $request->seat;
-        $segment->monitor_id = $request->monitor;
+        $segment->monitors()->sync($request->monitors); 
         $segment->activity_id = $request->activity;
         $segment->eye_condition_id = $request->eye_condition;
         $segment->glasses_id = $request->glasses;

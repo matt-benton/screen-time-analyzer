@@ -30,11 +30,11 @@ class SegmentRepository
         $segment->session_id = $session_id;
         $segment->activity_id = $request->activity;
         $segment->glasses_id = $request->glasses;
-        $segment->monitor_id = $request->monitor;
         $segment->eye_condition_id = $request->eye_condition;
         $segment->seat_id = $request->seat;
         $segment->save();
 
+        $segment->monitors()->attach($request->monitors);
         $segment->symptoms()->attach($request->symptoms);
     }
 
