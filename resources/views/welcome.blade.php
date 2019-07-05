@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Eye Strain Analyzer
+                   {{ env('APP_NAME') }}
                 </div>
             </div>
         </div>
