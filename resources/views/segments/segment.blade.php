@@ -39,10 +39,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="monitor-input">Monitor</label>
-                    <select class="form-control" id="monitor-input" name="monitor">
+                    <label for="monitor-input">Monitors</label>
+                    <select multiple class="form-control" id="monitors-input" name="monitors[]">
                         @foreach ($monitors as $monitor)
-                            <option value="{{ $monitor->id }}" @if ($segment->monitor_id === $monitor->id) selected @endif>{{ $monitor->name }}</option>
+                            <option value="{{ $monitor->id }}" @if ($segment->monitors->contains('id', $monitor->id)) selected @endif>{{ $monitor->name }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -42,8 +42,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="monitor-input">Monitor</label>
-                    <select class="form-control" id="monitor-input" name="monitor">
+                    <label for="monitor-input">Monitors</label>
+                    <select multiple class="form-control" id="monitor-input" name="monitors[]">
                         @foreach ($monitors as $monitor)
                             <option value="{{ $monitor->id }}">{{ $monitor->name }}</option>
                         @endforeach

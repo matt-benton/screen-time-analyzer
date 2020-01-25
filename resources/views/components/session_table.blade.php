@@ -42,7 +42,11 @@
                         </span>
                     </td>
                     <td>{{ $segment->seat->name }}</td>
-                    <td>{{ $segment->monitor->name }}</td>
+                    <td>
+                        @foreach ($segment->monitors as $monitor) 
+                            {{ $monitor->name }}<br>
+                        @endforeach
+                    </td>
                     <td>{{ $segment->activity->name }}</td>
                     <td>{{ $segment->glasses->name }}</td>
                     <td>

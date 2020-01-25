@@ -81,11 +81,11 @@ class SessionController extends Controller
     {
         $user = Auth::user();
         $session = $user->sessions()->where('id', $id)->first();
-        $segments = $session->segments()->with('seat', 'monitor', 'activity', 'eyeCondition', 'glasses', 'symptoms')->get();
-
+        $segments = $session->segments()->with('seat', 'monitors', 'activity', 'eyeCondition', 'glasses', 'symptoms')->get();
+        
         // Get most recent segment for this session
         $mostRecentSegment = $segments->sortBy('end')->pop();
-
+        
         return view('sessions.session', [
             'session' => $session,
             'segments' => $segments,

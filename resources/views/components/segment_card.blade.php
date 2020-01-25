@@ -13,7 +13,11 @@
     </a>
     <div class="card-body">
         {{ $segment->seat->name }}<br>
-        {{ $segment->monitor->name }}<br>
+
+        @foreach ($segment->monitors as $monitor)
+            {{ $monitor->name }}
+        @endforeach
+
         {{ $segment->activity->name }}<br>
         {{ $segment->glasses->name }}<br>
 

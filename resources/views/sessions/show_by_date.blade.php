@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container col-md-12 col-xl-9">
     @eye_status_bar(['sessions' => $sessions, 'totalScreenTime' => $totalScreenTime])
     @endeye_status_bar
     <div class="row justify-content-center">
@@ -24,10 +24,19 @@
 
         <!-- Sessions list -->
         <div class="col-md-8">
-            @foreach ($sessions as $session)
-                @session_table(['session' => $session])
-                @endsession_table
-            @endforeach
+            <div class="d-none d-md-block">
+                @foreach ($sessions as $session)
+                    @session_table(['session' => $session]) @endsession_table
+                @endforeach
+            </div>
+
+            <div class="d-md-none">
+                @foreach ($sessions as $session)
+                    @foreach ($session->segments as $segment)
+                        @segment_card(['segment' => $segment]) @endsegment_card
+                    @endforeach
+                @endforeach
+            </div>
         </div>
     </div>
 </div>
