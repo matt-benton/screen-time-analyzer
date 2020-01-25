@@ -78,7 +78,6 @@ class ActivityTest extends TestCase
         $segment1->start = new Carbon('2019-01-22 9:00 pm');
         $segment1->end = new Carbon('2019-01-22 9:28 pm');
         $segment1->glasses_id = $glasses->id;
-        $segment1->monitor_id = $monitor->id;
         $segment1->seat_id = $seat->id;
         $segment1->eye_condition_id = $eyeCondition->id;
 
@@ -87,7 +86,6 @@ class ActivityTest extends TestCase
         $segment2->start = new Carbon('2019-01-23 11:15 am');
         $segment2->end = new Carbon('2019-01-23 11:45 am');
         $segment2->glasses_id = $glasses->id;
-        $segment2->monitor_id = $monitor->id;
         $segment2->seat_id = $seat->id;
         $segment2->eye_condition_id = $eyeCondition->id;
 
@@ -96,7 +94,6 @@ class ActivityTest extends TestCase
         $segment3->start = new Carbon('2019-01-25 10:01 am');
         $segment3->end = new Carbon('2019-01-25 10:27 am');
         $segment3->glasses_id = $glasses->id;
-        $segment3->monitor_id = $monitor->id;
         $segment3->seat_id = $seat->id;
         $segment3->eye_condition_id = $eyeCondition->id;
 
@@ -106,11 +103,15 @@ class ActivityTest extends TestCase
         $segment4->start = new Carbon('2019-01-30 3:41 pm');
         $segment4->end = new Carbon('2019-01-30 4:10 pm');
         $segment4->glasses_id = $glasses->id;
-        $segment4->monitor_id = $monitor->id;
         $segment4->seat_id = $seat->id;
         $segment4->eye_condition_id = $eyeCondition->id;
 
         $activity->segments()->saveMany([$segment1, $segment2, $segment3, $segment4]);
+
+        $segment1->monitors()->attach($monitor);
+        $segment2->monitors()->attach($monitor);
+        $segment3->monitors()->attach($monitor);
+        $segment4->monitors()->attach($monitor);
 
         $this->assertEquals(84, $activity->calculateTotalTimeSpentByDateRange(new Carbon('2019-01-22'), new Carbon('2019-01-29')));
     }
